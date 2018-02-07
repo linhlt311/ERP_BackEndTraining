@@ -84,6 +84,9 @@
                     {{ $employees->links() }}
                 </div>
                 <!-- /.box-body -->
+                <a href="{{route('user.create')}}">
+                    <button class="btn btn-success"><i class="fa fa-fw fa-plus"></i>Add new</button>
+                </a>
             </div>
             <!-- /.box -->
         </div>

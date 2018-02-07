@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreEmployeeRequest;
 use App\Employee;
 
 class ManageUserController extends Controller
@@ -37,10 +38,14 @@ class ManageUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEmployeeRequest $request)
     {
         $data = $request->all();
         $data = array_slice($data, 1);
+        $imgLink = $request->file('img')->store('public/images');
+        $imgLink = substr($imgLink, 7);
+        unset($data["img"]);
+        $data["image"] = $imgLink;
         Employee::insert($data);
         return redirect()->route('user.index');
     }
@@ -82,7 +87,7 @@ class ManageUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreEmployeeRequest $request, $id)
     {
         $data = $request->all();
         $data = array_slice($data, 2);

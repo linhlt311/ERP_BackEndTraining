@@ -8,8 +8,17 @@
                 <h3 class="box-title">Add new employee</h3>
             </div>
             <!-- /.box-header -->
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div><br />
+            @endif
             <!-- form start -->
-            <form role="form" action="{{route('user.store')}}" method="post">
+            <form role="form" action="{{route('user.store')}}" method="post" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <div class="box-body">
                     <div class="form-group">
@@ -52,6 +61,12 @@
                             <option value="None" selected>None</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="imgFile">Upload image</label><br>
+                        <img id="uploadImg" src="#" alt="your image" />
+                        <input type="file" id="imgFile" name="img">
+                        <p class="help-block">Upload profile picture</p>
+                    </div>
                 </div>
                 <!-- /.box-body -->
 
@@ -62,4 +77,28 @@
         </div>
     </section>
 
+@endsection
+
+@section('javascript')
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#uploadImg').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $(document).ready(function() {
+            $('#uploadImg').css('visibility','hidden');
+            $("#imgFile").change(function () {
+                $('#uploadImg').css('visibility','visible');
+                readURL(this);
+            });
+        });
+    </script>
 @endsection

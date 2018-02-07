@@ -24,6 +24,7 @@
                     </div>
                 </div>
                 <div class="box-body">
+                    <img class="profile-user-img img-responsive img-circle" src="{{url('storage')}}/{{$employee->image}}" alt="User profile picture">
                     Name: {{$employee->name}}
                     <br>
                     Gender: {{($employee->gender)?"Male":"Female"}}
