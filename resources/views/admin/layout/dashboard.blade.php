@@ -96,7 +96,7 @@
         </li>
         <li class="">
           <a href="{{route('user.create')}}">
-            <i class="fa fa-edit"></i> <span>New employee</span>
+            <i class="fa fa-plus"></i> <span>New employee</span>
             <span class="pull-right-container">
             </span>
           </a>

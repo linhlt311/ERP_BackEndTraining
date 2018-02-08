@@ -15,7 +15,7 @@
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
-                </div><br />
+                </div>
             @endif
             <!-- form start -->
             <form role="form" action="{{route('user.store')}}" method="post" enctype="multipart/form-data">
@@ -29,18 +29,18 @@
                         <label for="">Gender</label>
                         <div class="radio">
                             <label class="radio-inline">
-                                <input type="radio" name="gender" id="optionsRadios1" value="1" checked="" required>
+                                <input type="radio" name="gender" id="optionsRadios1" value="1" checked="" >
                                 Male
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="gender" id="optionsRadios2" value="0" required>
+                                <input type="radio" name="gender" id="optionsRadios2" value="0" >
                                 Female
                             </label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="">Phone number</label>
-                        <input type="text" class="form-control" id="" placeholder="Enter phone number" name="phone_number" required autocomplete="off">
+                        <input type="text" class="form-control" id="" placeholder="Enter phone number" name="phone_number"  autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <label for="">Email address</label>
@@ -63,8 +63,9 @@
                     </div>
                     <div class="form-group">
                         <label for="imgFile">Upload image</label><br>
-                        <img id="uploadImg" src="#" alt="your image" />
-                        <input type="file" id="imgFile" name="img">
+                        <img class="hidden" id="uploadImg" src="#" alt="your image" />
+                        <input class="hidden" type="file" id="imgFile" name="img">
+                        <button type="button" id="uploadImgBtn" class="btn btn-success"><i class="fa fa-fw fa-upload"></i>Upload</button>
                         <p class="help-block">Upload profile picture</p>
                     </div>
                 </div>
@@ -94,11 +95,13 @@
             }
         }
         $(document).ready(function() {
-            $('#uploadImg').css('visibility','hidden');
             $("#imgFile").change(function () {
-                $('#uploadImg').css('visibility','visible');
+                $('#uploadImg').removeClass('hidden');
                 readURL(this);
             });
+            $('#uploadImgBtn').on('click', function() {
+                $("#imgFile").trigger('click');
+            })
         });
     </script>
 @endsection

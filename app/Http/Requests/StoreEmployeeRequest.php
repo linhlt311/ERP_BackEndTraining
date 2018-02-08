@@ -24,7 +24,23 @@ class StoreEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            "email" => 'unique:employees',
+            "email" => 'unique:employees|max:255',
+            "img" => 'required',
+            "name" => "max:255",
+            "phone" => "max:255",
+            "address" => "max:255",
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'img.required'  => 'Profile image is required',
         ];
     }
 }

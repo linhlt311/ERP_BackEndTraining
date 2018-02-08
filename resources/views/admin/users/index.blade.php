@@ -32,16 +32,16 @@
                         </thead>
                         <tfoot>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Gender</th>
-                            <th>Email</th>
-                            <th>Phone number</th>
-                            <th>Address</th>
-                            <th>JLPT level</th>
-                            <th>Show</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         </tr>
                         </tfoot>
                         <tbody>
@@ -84,9 +84,11 @@
                     {{ $employees->links() }}
                 </div>
                 <!-- /.box-body -->
+                {{--Trigger add new modal--}}
                 <a href="{{route('user.create')}}">
                     <button class="btn btn-success"><i class="fa fa-fw fa-plus"></i>Add new</button>
                 </a>
+                {{--Add new modal--}}
             </div>
             <!-- /.box -->
         </div>
@@ -124,7 +126,7 @@
                     buttons: true,
                     dangerMode: true,
                 })
-                    .then((willDelete) = > {
+                    .then((willDelete) => {
                     if(willDelete) {
                         $.ajax({
                             type: 'delete',

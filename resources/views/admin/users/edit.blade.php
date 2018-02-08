@@ -61,6 +61,9 @@
                 </div>
             </form>
         </div>
+        <a href="{{route('user.show', ['id'=>$employee->id])}}">
+            <button class="btn btn-success">Profile</button>
+        </a>
     </section>
 
 @endsection

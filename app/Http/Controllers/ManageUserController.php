@@ -87,7 +87,7 @@ class ManageUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreEmployeeRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
         $data = array_slice($data, 2);
@@ -106,6 +106,16 @@ class ManageUserController extends Controller
         Employee::find($id)->delete();
         return response()->json([
             'message' => 'Delete success'
+        ]);
+    }
+
+    public function updateImage(Request $request, $id) {
+        $imgLink = $request->file('img')->store('public/images');
+        $imgLink = substr($imgLink, 7);
+        $data["image"] = $imgLink;
+        Employee::where('id',$id)->update($data);
+        return redirect()->route('user.show', [
+            'id' => $id,
         ]);
     }
 }

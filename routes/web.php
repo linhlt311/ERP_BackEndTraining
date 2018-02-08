@@ -16,6 +16,7 @@
 //Route::put('/add', 'UserController@add')->name('add-employee');
 
 Route::resource('user','ManageUserController');
+Route::put('user/{id}/update-image', 'ManageUserController@updateImage')->name('user.update.image');
 
 Route::get('/', function() {
     return view('admin.users.test');
