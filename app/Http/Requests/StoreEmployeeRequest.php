@@ -25,7 +25,6 @@ class StoreEmployeeRequest extends FormRequest
     {
         return [
             "email" => 'unique:employees|max:255',
-            "img" => 'required',
             "name" => "max:255",
             "phone" => "max:255",
             "address" => "max:255",

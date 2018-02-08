@@ -15,7 +15,8 @@ class ManageUserController extends Controller
      */
     public function index()
     {
-        $employees = Employee::paginate(5);
+        $employees = Employee::orderBy('updated_at','desc')->paginate(5);
+//        dd($employees);
         $data = [
             'employees' => $employees,
         ];
@@ -42,11 +43,16 @@ class ManageUserController extends Controller
     {
         $data = $request->all();
         $data = array_slice($data, 1);
-        $imgLink = $request->file('img')->store('public/images');
-        $imgLink = substr($imgLink, 7);
-        unset($data["img"]);
-        $data["image"] = $imgLink;
-        Employee::insert($data);
+        if (array_key_exists('img', $data)) {
+            $imgLink = $request->file('img')->store('public/images');
+            $imgLink = substr($imgLink, 7);
+            unset($data["img"]);
+            $data["image"] = $imgLink;
+        } else {
+            $data["image"] = "/images/y3hdomBA0wWUY5k7D1iKHDQl6KN7HCsNNEMzLZ7T.png";
+        }
+//        dd($data);
+        Employee::create($data);
         return redirect()->route('user.index');
     }
 
