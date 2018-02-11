@@ -9,7 +9,6 @@ class UserController extends Controller
 {
     public function show() {
         $employee = Employee::get();
-        dd($employee);
         return view('admin.users.show', $employee);
     }
 

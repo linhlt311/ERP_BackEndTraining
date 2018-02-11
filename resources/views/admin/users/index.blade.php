@@ -104,9 +104,7 @@
                                         <div class="form-group">
                                             <label for="">Name</label>
                                             @if ($errors->has('name'))
-                                                <div class="alert alert-danger">
-                                                    {{ $errors->first('name') }}
-                                                </div>
+                                                <p class="input-warning">{{ $errors->first('name') }}</p>
                                             @endif
                                             <input type="text" class="form-control" id="" placeholder="Enter name" name="name" autocomplete="off" value="{{ old('name') }}" required>
                                         </div>
@@ -125,28 +123,22 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="">Phone number</label>
-                                            @if ($errors->has('phone'))
-                                                <div class="alert alert-danger">
-                                                    {{ $errors->first('phone') }}
-                                                </div>
+                                            @if ($errors->has('phone_number'))
+                                                <p class="input-warning">{{ $errors->first('phone_number') }}</p>
                                             @endif
-                                            <input type="number" class="form-control" id="" placeholder="Enter phone number" name="phone_number" value="{{ old('phone_number') }}"  autocomplete="off" required>
+                                            <input type="text" class="form-control" id="" placeholder="Enter phone number" name="phone_number" value="{{ old('phone_number') }}"  autocomplete="off" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Email address</label>
                                             @if ($errors->has('email'))
-                                                <div class="alert alert-danger">
-                                                    {{ $errors->first('email') }}
-                                                </div>
+                                                <p class="input-warning">{{ $errors->first('email') }}</p>
                                             @endif
                                             <input type="email" class="form-control" id="" placeholder="Enter email" name="email" autocomplete="off" value="{{ old('email') }}" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Address</label>
                                             @if ($errors->has('address'))
-                                                <div class="alert alert-danger">
-                                                    {{ $errors->first('address') }}
-                                                </div>
+                                                <p class="input-warning">{{ $errors->first('address') }}</p>
                                             @endif
                                             <input type="text" class="form-control" id="" placeholder="Enter address" name="address" autocomplete="off" value="{{ old('address') }}" required>
                                         </div>

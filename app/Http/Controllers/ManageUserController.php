@@ -16,7 +16,6 @@ class ManageUserController extends Controller
     public function index()
     {
         $employees = Employee::orderBy('updated_at','desc')->paginate(5);
-//        dd($employees);
         $data = [
             'employees' => $employees,
         ];
@@ -63,7 +62,7 @@ class ManageUserController extends Controller
      */
     public function show($id)
     {
-        $employee = Employee::find($id);
+        $employee = Employee::findOrFail($id);
         $data = [
             'employee' => $employee,
         ];
@@ -78,7 +77,7 @@ class ManageUserController extends Controller
      */
     public function edit($id)
     {
-        $employee = Employee::find($id);
+        $employee = Employee::findOrFail($id);
         $data = [
             'employee' => $employee,
         ];
@@ -108,7 +107,7 @@ class ManageUserController extends Controller
      */
     public function destroy($id)
     {
-        Employee::find($id)->delete();
+        Employee::findOrFail($id)->delete();
         return response()->json([
             'message' => 'Delete success'
         ]);

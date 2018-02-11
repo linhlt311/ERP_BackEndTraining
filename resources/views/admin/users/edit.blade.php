@@ -9,12 +9,15 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="{{ route('user.edit', $employee->id) }}" method="post">
+            <form role="form" action="{{ route('user.update', $employee->id) }}" method="post">
                 {{ csrf_field() }}
                 <input type="hidden" name="_method" value="PUT">
                 <div class="box-body">
                     <div class="form-group">
                         <label for="">Name</label>
+                        @if ($errors->has('name'))
+                            <p class="input-warning">{{ $errors->first('name') }}</p>
+                        @endif
                         <input type="text" class="form-control" id="" name="name" autocomplete="off" value="{{ $employee->name }}" required>
                     </div>
                     <div class="form-group">
@@ -32,14 +35,20 @@
                     </div>
                     <div class="form-group">
                         <label for="">Phone number</label>
+                        @if ($errors->has('phone_number'))
+                            <p class="input-warning">{{ $errors->first('phone_number') }}</p>
+                        @endif
                         <input type="text" class="form-control" id="" value="{{ $employee->phone_number }}" name="phone_number" required autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="">Email address</label>
-                        <input type="email" class="form-control" id="" value="{{ $employee->email }}" name="email" autocomplete="off" required>
+                        <input type="email" class="form-control" id="" value="{{ $employee->email }}" name="email" autocomplete="off" disabled>
                     </div>
                     <div class="form-group">
                         <label for="">Address</label>
+                        @if ($errors->has('address'))
+                            <p class="input-warning">{{ $errors->first('address') }}</p>
+                        @endif
                         <input type="text" class="form-control" id="" value="{{ $employee->address }}" name="address" autocomplete="off" required>
                     </div>
                     <div class="form-group">
