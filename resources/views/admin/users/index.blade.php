@@ -55,14 +55,14 @@
                                 <td>{{ $employee->address }}</td>
                                 <td>{{ $employee->JLPT }}</td>
                                 <td>
-                                    <a href="{{ url('user') }}/{{ $employee->id }}">
+                                    <a href="{{ route('user.show', $employee->id) }}">
                                         <button class="btn btn-primary btn-sm">
                                             <i class="fa fa-th-list"></i>
                                         </button>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ url('user')}}/{{ $employee->id }}/edit">
+                                    <a href="{{ route('user.edit', $employee->id) }}">
                                         <button class="btn btn-warning btn-sm">
                                             <i class="fa fa-edit"></i>
                                         </button>
@@ -108,7 +108,7 @@
                                                     {{ $errors->first('name') }}
                                                 </div>
                                             @endif
-                                            <input type="text" class="form-control" id="" placeholder="Enter name" name="name" autocomplete="off" required>
+                                            <input type="text" class="form-control" id="" placeholder="Enter name" name="name" autocomplete="off" value="{{ old('name') }}" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Gender</label>
@@ -130,7 +130,7 @@
                                                     {{ $errors->first('phone') }}
                                                 </div>
                                             @endif
-                                            <input type="number" class="form-control" id="" placeholder="Enter phone number" name="phone_number"  autocomplete="off" required>
+                                            <input type="number" class="form-control" id="" placeholder="Enter phone number" name="phone_number" value="{{ old('phone_number') }}"  autocomplete="off" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Email address</label>
@@ -139,7 +139,7 @@
                                                     {{ $errors->first('email') }}
                                                 </div>
                                             @endif
-                                            <input type="email" class="form-control" id="" placeholder="Enter email" name="email" autocomplete="off" required>
+                                            <input type="email" class="form-control" id="" placeholder="Enter email" name="email" autocomplete="off" value="{{ old('email') }}" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Address</label>
@@ -148,7 +148,7 @@
                                                     {{ $errors->first('address') }}
                                                 </div>
                                             @endif
-                                            <input type="text" class="form-control" id="" placeholder="Enter address" name="address" autocomplete="off" required>
+                                            <input type="text" class="form-control" id="" placeholder="Enter address" name="address" autocomplete="off" value="{{ old('address') }}" required>
                                         </div>
                                         <div class="form-group">
                                             <label>JLPT level</label>
@@ -238,7 +238,6 @@
                             type: 'delete',
                             url: 'user/' + id,
                             success: function (response) {
-                                toastr.success('Deleted success');
                                 btn.parent().parent().parent().fadeOut('slow');
                             },
                         });

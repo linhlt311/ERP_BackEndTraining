@@ -9,7 +9,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="{{ url('user') }}/{{ $employee->id }}" method="post">
+            <form role="form" action="{{ route('user.edit', $employee->id) }}" method="post">
                 {{ csrf_field() }}
                 <input type="hidden" name="_method" value="PUT">
                 <div class="box-body">

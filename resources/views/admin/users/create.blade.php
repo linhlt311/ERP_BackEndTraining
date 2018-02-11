@@ -20,13 +20,13 @@
                                 {{ $errors->first('name') }}
                             </div>
                         @endif
-                        <input type="text" class="form-control" id="" placeholder="Enter name" name="name" autocomplete="off" required>
+                        <input type="text" class="form-control" id="" placeholder="Enter name" name="name" autocomplete="off" value="{{ old('name') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="">Gender</label>
                         <div class="radio">
                             <label class="radio-inline">
-                                <input type="radio" name="gender" id="optionsRadios1" value="1" checked="" >
+                                <input type="radio" name="gender" id="optionsRadios1" value="1" checked >
                                 Male
                             </label>
                             <label class="radio-inline">
@@ -42,7 +42,7 @@
                                 {{ $errors->first('phone') }}
                             </div>
                         @endif
-                        <input type="number" class="form-control" id="" placeholder="Enter phone number" name="phone_number"  autocomplete="off" required>
+                        <input type="number" class="form-control" id="" placeholder="Enter phone number" name="phone_number"  autocomplete="off" value="{{ old('phone_number') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="">Email address</label>
@@ -51,7 +51,7 @@
                                 {{ $errors->first('email') }}
                             </div>
                         @endif
-                        <input type="email" class="form-control" id="" placeholder="Enter email" name="email" autocomplete="off" required>
+                        <input type="email" class="form-control" id="" placeholder="Enter email" name="email" autocomplete="off" value="{{ old('email') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="">Address</label>
@@ -60,7 +60,7 @@
                                 {{ $errors->first('address') }}
                             </div>
                         @endif
-                        <input type="text" class="form-control" id="" placeholder="Enter address" name="address" autocomplete="off" required>
+                        <input type="text" class="form-control" id="" placeholder="Enter address" name="address" autocomplete="off" value="{{ old('address') }}" required>
                     </div>
                     <div class="form-group">
                         <label>JLPT level</label>

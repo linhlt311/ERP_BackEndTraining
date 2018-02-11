@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <img class="profile-user-img img-responsive img-circle" src="{{ url('storage') }}/{{ $employee->image }}" alt="User profile picture">
+                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('storage') }}/{{ $employee->image }}" alt="User profile picture">
                     {{--Trigger upload img modal--}}
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-upload"></i>Upload image</button><br>
                     {{--End trigger--}}
