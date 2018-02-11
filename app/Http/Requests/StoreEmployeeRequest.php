@@ -27,7 +27,7 @@ class StoreEmployeeRequest extends FormRequest
             "email" => 'unique:employees|max:255',
             "name" => "max:255|regex:/^[\p{L}\s'.-]+$/u",
             "phone" => "min:6|max:20",
-            "address" => "max:255|",
+            "address" => "max:255",
         ];
     }
 }
