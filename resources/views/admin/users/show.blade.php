@@ -14,7 +14,7 @@
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{$employee->name}}</h3>
+                    <h3 class="box-title">{{ $employee->name }}</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
@@ -24,32 +24,32 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <img class="profile-user-img img-responsive img-circle" src="{{url('storage')}}/{{$employee->image}}" alt="User profile picture">
+                    <img class="profile-user-img img-responsive img-circle" src="{{ url('storage') }}/{{ $employee->image }}" alt="User profile picture">
                     {{--Trigger upload img modal--}}
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-upload"></i>Upload image</button><br>
                     {{--End trigger--}}
-                    Name: {{$employee->name}}
+                    Name: {{ $employee->name }}
                     <br>
-                    Gender: {{($employee->gender)?"Male":"Female"}}
+                    Gender: {{ ($employee->gender)?"Male":"Female" }}
                     <br>
-                    Email: {{$employee->email}}
+                    Email: {{ $employee->email }}
                     <br>
-                    Phone number: {{$employee->phone_number}}
+                    Phone number: {{ $employee->phone_number }}
                     <br>
-                    Address: {{$employee->address}}
+                    Address: {{ $employee->address }}
                     <br>
-                    JLPT level: {{$employee->JLPT}}
+                    JLPT level: {{ $employee->JLPT }}
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    <a href="{{route('user.edit', ['id'=>$employee->id])}}">
+                    <a href="{{ route('user.edit', ['id'=>$employee->id]) }}">
                         <button class="btn btn-warning">Edit information</button>
                     </a>
                 </div>
                 <!-- /.box-footer-->
             </div>
             <!-- /.box -->
-            <a href="{{route('user.index')}}">
+            <a href="{{ route('user.index') }}">
                 <button class="btn btn-success">Back</button>
             </a>
 
@@ -65,8 +65,8 @@
                             <h4 class="modal-title">Upload profile image</h4>
                         </div>
                         <div class="modal-body">
-                            <form role="form" action="{{route('user.update.image', ['id' => $employee->id])}}" method="post" enctype="multipart/form-data">
-                                {{csrf_field()}}
+                            <form role="form" action="{{ route('user.update.image', ['id' => $employee->id]) }}" method="post" enctype="multipart/form-data">
+                                {{ csrf_field() }}
                                 <input type="hidden" name="_method" value="PUT">
                                 <div class="form-group">
                                     <img class="hidden" id="uploadImg" src="#" alt="your image" />

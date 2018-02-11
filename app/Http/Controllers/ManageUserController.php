@@ -51,7 +51,6 @@ class ManageUserController extends Controller
         } else {
             $data["image"] = "/images/y3hdomBA0wWUY5k7D1iKHDQl6KN7HCsNNEMzLZ7T.png";
         }
-//        dd($data);
         Employee::create($data);
         return redirect()->route('user.index');
     }

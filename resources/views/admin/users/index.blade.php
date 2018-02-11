@@ -47,22 +47,22 @@
                         <tbody>
                         @foreach ($employees as $employee)
                             <tr>
-                                <td>{{$employee->id}}</td>
-                                <td>{{$employee->name}}</td>
-                                <td>{{($employee->gender)?"Male":"Female"}}</td>
-                                <td>{{$employee->email}}</td>
-                                <td>{{$employee->phone_number}}</td>
-                                <td>{{$employee->address}}</td>
-                                <td>{{$employee->JLPT}}</td>
+                                <td>{{ $employee->id }}</td>
+                                <td>{{ $employee->name }}</td>
+                                <td>{{ ($employee->gender)?"Male":"Female" }}</td>
+                                <td>{{ $employee->email }}</td>
+                                <td>{{ $employee->phone_number }}</td>
+                                <td>{{ $employee->address }}</td>
+                                <td>{{ $employee->JLPT }}</td>
                                 <td>
-                                    <a href="{{url('user')}}/{{$employee->id}}">
+                                    <a href="{{ url('user') }}/{{ $employee->id }}">
                                         <button class="btn btn-primary btn-sm">
                                             <i class="fa fa-th-list"></i>
                                         </button>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{url('user')}}/{{$employee->id}}/edit">
+                                    <a href="{{ url('user')}}/{{ $employee->id }}/edit">
                                         <button class="btn btn-warning btn-sm">
                                             <i class="fa fa-edit"></i>
                                         </button>
@@ -70,9 +70,9 @@
                                 </td>
                                 <td>
                                     <form action="" method="post">
-                                        {{csrf_field()}}
+                                        {{ csrf_field() }}
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button type="submit" data-id="{{$employee->id}}" class="btn btn-danger btn-sm">
+                                        <button type="submit" data-id="{{ $employee->id }}" class="btn btn-danger btn-sm">
                                             <i class="fa fa-trash-o"></i>
                                         </button>
                                     </form>
@@ -98,11 +98,16 @@
                                 <h3 class="modal-title">Add new employee</h3>
                             </div>
                             <div class="modal-body">
-                                <form role="form" action="{{route('user.store')}}" method="post" enctype="multipart/form-data">
+                                <form role="form" action="{{ route('user.store') }}" method="post" enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label for="">Name</label>
+                                            @if ($errors->has('name'))
+                                                <div class="alert alert-danger">
+                                                    {{ $errors->first('name') }}
+                                                </div>
+                                            @endif
                                             <input type="text" class="form-control" id="" placeholder="Enter name" name="name" autocomplete="off" required>
                                         </div>
                                         <div class="form-group">
@@ -120,14 +125,29 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="">Phone number</label>
-                                            <input type="text" class="form-control" id="" placeholder="Enter phone number" name="phone_number"  autocomplete="off" required>
+                                            @if ($errors->has('phone'))
+                                                <div class="alert alert-danger">
+                                                    {{ $errors->first('phone') }}
+                                                </div>
+                                            @endif
+                                            <input type="number" class="form-control" id="" placeholder="Enter phone number" name="phone_number"  autocomplete="off" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Email address</label>
+                                            @if ($errors->has('email'))
+                                                <div class="alert alert-danger">
+                                                    {{ $errors->first('email') }}
+                                                </div>
+                                            @endif
                                             <input type="email" class="form-control" id="" placeholder="Enter email" name="email" autocomplete="off" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="">Address</label>
+                                            @if ($errors->has('address'))
+                                                <div class="alert alert-danger">
+                                                    {{ $errors->first('address') }}
+                                                </div>
+                                            @endif
                                             <input type="text" class="form-control" id="" placeholder="Enter address" name="address" autocomplete="off" required>
                                         </div>
                                         <div class="form-group">

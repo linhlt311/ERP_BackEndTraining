@@ -8,21 +8,18 @@
                 <h3 class="box-title">Add new employee</h3>
             </div>
             <!-- /.box-header -->
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+
             <!-- form start -->
-            <form role="form" action="{{route('user.store')}}" method="post" enctype="multipart/form-data">
+            <form role="form" action="{{ route('user.store') }}" method="post" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <div class="box-body">
                     <div class="form-group">
                         <label for="">Name</label>
+                        @if ($errors->has('name'))
+                            <div class="alert alert-danger">
+                                {{ $errors->first('name') }}
+                            </div>
+                        @endif
                         <input type="text" class="form-control" id="" placeholder="Enter name" name="name" autocomplete="off" required>
                     </div>
                     <div class="form-group">
@@ -40,14 +37,29 @@
                     </div>
                     <div class="form-group">
                         <label for="">Phone number</label>
-                        <input type="text" class="form-control" id="" placeholder="Enter phone number" name="phone_number"  autocomplete="off" required>
+                        @if ($errors->has('phone'))
+                            <div class="alert alert-danger">
+                                {{ $errors->first('phone') }}
+                            </div>
+                        @endif
+                        <input type="number" class="form-control" id="" placeholder="Enter phone number" name="phone_number"  autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <label for="">Email address</label>
+                        @if ($errors->has('email'))
+                            <div class="alert alert-danger">
+                                {{ $errors->first('email') }}
+                            </div>
+                        @endif
                         <input type="email" class="form-control" id="" placeholder="Enter email" name="email" autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <label for="">Address</label>
+                        @if ($errors->has('address'))
+                            <div class="alert alert-danger">
+                                {{ $errors->first('address') }}
+                            </div>
+                        @endif
                         <input type="text" class="form-control" id="" placeholder="Enter address" name="address" autocomplete="off" required>
                     </div>
                     <div class="form-group">
