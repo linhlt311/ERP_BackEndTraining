@@ -232,6 +232,9 @@
                             success: function (response) {
                                 btn.parent().parent().parent().fadeOut('slow');
                             },
+                            error: function (xhr, status, error) {
+                                toastr.error('Unable to delete.', 'Error!');
+                            },
                         });
                     }
                 }

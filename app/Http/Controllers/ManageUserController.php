@@ -15,7 +15,7 @@ class ManageUserController extends Controller
      */
     public function index()
     {
-        $employees = Employee::orderBy('updated_at','desc')->paginate(5);
+        $employees = Employee::orderBy('updated_at','desc')->paginate(config('app.user_pagination'));
         $data = [
             'employees' => $employees,
         ];
@@ -41,8 +41,7 @@ class ManageUserController extends Controller
     public function store(StoreEmployeeRequest $request)
     {
         $data = $request->all();
-        $data = array_slice($data, 1);
-        if (array_key_exists('img', $data)) {
+        if ($request->hasFile('img')) {
             $imgLink = $request->file('img')->store('public/images');
             $imgLink = substr($imgLink, 7);
             unset($data["img"]);
@@ -114,10 +113,16 @@ class ManageUserController extends Controller
     }
 
     public function updateImage(Request $request, $id) {
+        $array = $request->all();
+        if (!$request->hasFile('img')) {
+            return redirect()->route('user.show', [
+                'id' => $id,
+            ]);
+        }
         $imgLink = $request->file('img')->store('public/images');
         $imgLink = substr($imgLink, 7);
         $data["image"] = $imgLink;
-        Employee::where('id',$id)->update($data);
+        Employee::find($id)->update($data);
         return redirect()->route('user.show', [
             'id' => $id,
         ]);

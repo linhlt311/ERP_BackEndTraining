@@ -30,4 +30,23 @@ class StoreEmployeeRequest extends FormRequest
             "address" => "max:255",
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            "email.unique" => "The email has already been used",
+            "email.max" => "The email is too long",
+            "name.max" => "Your name is too long",
+            "name.regex" => "Your name is invalid",
+            "phone_number.min" => "Your phone number is too short",
+            "phone_number.max" => "Your phone number is too long",
+            "address.max" => "Your address is too long",
+        ];
+    }
+
 }
