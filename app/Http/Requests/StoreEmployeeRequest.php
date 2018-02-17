@@ -24,7 +24,7 @@ class StoreEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            "email" => 'unique:employees|max:255',
+            "email" => "unique:employees,email,NULL,id,deleted_at,NULL|max:255",
             "name" => "max:255|regex:/^[\p{L}\s'.-]+$/u",
             "phone_number" => "min:6|max:20|regex:/^[0-9]*$/",
             "address" => "max:255",
