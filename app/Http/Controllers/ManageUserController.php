@@ -44,10 +44,7 @@ class ManageUserController extends Controller
         if ($request->hasFile('img')) {
             $imgLink = $request->file('img')->store('public/images');
             $imgLink = substr($imgLink, 7);
-            unset($data["img"]);
             $data["image"] = $imgLink;
-        } else {
-            $data["image"] = "/images/y3hdomBA0wWUY5k7D1iKHDQl6KN7HCsNNEMzLZ7T.png";
         }
         Employee::create($data);
         return redirect()->route('user.index');
