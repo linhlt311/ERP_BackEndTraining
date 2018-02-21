@@ -32,37 +32,37 @@
                         </thead>
                         <tfoot>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Gender</th>
-                            <th>Email</th>
-                            <th>Phone number</th>
-                            <th>Address</th>
-                            <th>JLPT level</th>
-                            <th>Show</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         </tr>
                         </tfoot>
                         <tbody>
                         @foreach ($employees as $employee)
                             <tr>
-                                <td>{{$employee->id}}</td>
-                                <td>{{$employee->name}}</td>
-                                <td>{{($employee->gender)?"Male":"Female"}}</td>
-                                <td>{{$employee->email}}</td>
-                                <td>{{$employee->phone_number}}</td>
-                                <td>{{$employee->address}}</td>
-                                <td>{{$employee->JLPT}}</td>
+                                <td>{{ $employee->id }}</td>
+                                <td>{{ $employee->name }}</td>
+                                <td>{{ ($employee->gender)?"Male":"Female" }}</td>
+                                <td>{{ $employee->email }}</td>
+                                <td>{{ $employee->phone_number }}</td>
+                                <td>{{ $employee->address }}</td>
+                                <td>{{ $employee->JLPT }}</td>
                                 <td>
-                                    <a href="{{url('user')}}/{{$employee->id}}">
+                                    <a href="{{ route('user.show', $employee->id) }}">
                                         <button class="btn btn-primary btn-sm">
                                             <i class="fa fa-th-list"></i>
                                         </button>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{url('user')}}/{{$employee->id}}/edit">
+                                    <a href="{{ route('user.edit', $employee->id) }}">
                                         <button class="btn btn-warning btn-sm">
                                             <i class="fa fa-edit"></i>
                                         </button>
@@ -70,9 +70,9 @@
                                 </td>
                                 <td>
                                     <form action="" method="post">
-                                        {{csrf_field()}}
+                                        {{ csrf_field() }}
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button type="submit" data-id="{{$employee->id}}" class="btn btn-danger btn-sm">
+                                        <button type="submit" data-id="{{ $employee->id }}" class="btn btn-danger btn-sm">
                                             <i class="fa fa-trash-o"></i>
                                         </button>
                                     </form>
@@ -84,6 +84,95 @@
                     {{ $employees->links() }}
                 </div>
                 <!-- /.box-body -->
+                {{--Trigger add new modal--}}
+                <button class="btn btn-success" data-toggle="modal" data-target="#addNewModal"><i class="fa fa-fw fa-plus"></i>Add new</button>
+                {{--Add new modal--}}
+            <!-- Modal -->
+                <div id="addNewModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h3 class="modal-title">Add new employee</h3>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form" action="{{ route('user.store') }}" method="post" enctype="multipart/form-data">
+                                    {{csrf_field()}}
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="">Name</label>
+                                            @if ($errors->has('name'))
+                                                <p class="input-warning">{{ $errors->first('name') }}</p>
+                                            @endif
+                                            <input type="text" class="form-control" id="" placeholder="Enter name" name="name" autocomplete="off" value="{{ old('name') }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Gender</label>
+                                            <div class="radio">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="gender" id="optionsRadios1" value="1" checked="" >
+                                                    Male
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="gender" id="optionsRadios2" value="0" >
+                                                    Female
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Phone number</label>
+                                            @if ($errors->has('phone_number'))
+                                                <p class="input-warning">{{ $errors->first('phone_number') }}</p>
+                                            @endif
+                                            <input type="text" class="form-control" id="" placeholder="Enter phone number" name="phone_number" value="{{ old('phone_number') }}"  autocomplete="off" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Email address</label>
+                                            @if ($errors->has('email'))
+                                                <p class="input-warning">{{ $errors->first('email') }}</p>
+                                            @endif
+                                            <input type="email" class="form-control" id="" placeholder="Enter email" name="email" autocomplete="off" value="{{ old('email') }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Address</label>
+                                            @if ($errors->has('address'))
+                                                <p class="input-warning">{{ $errors->first('address') }}</p>
+                                            @endif
+                                            <input type="text" class="form-control" id="" placeholder="Enter address" name="address" autocomplete="off" value="{{ old('address') }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>JLPT level</label>
+                                            <select class="form-control" name="JLPT">
+                                                <option value="N1">N1</option>
+                                                <option value="N2">N2</option>
+                                                <option value="N3">N3</option>
+                                                <option value="N4">N4</option>
+                                                <option value="N5">N5</option>
+                                                <option value="None" selected>None</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="imgFile">Upload image</label><br>
+                                            <img class="hidden" id="uploadImg" src="#" alt="your image" />
+                                            <input class="hidden" type="file" id="imgFile" name="img">
+                                            <button type="button" id="uploadImgBtn" class="btn btn-success"><i class="fa fa-fw fa-upload"></i>Upload</button>
+                                            <p class="help-block">Upload profile picture</p>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <button class="hidden" type="submit" id="addEmployee">Submit</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
             <!-- /.box -->
         </div>
@@ -97,11 +186,25 @@
             $('#userTable').DataTable({
                 paging: false,
                 info: false,
+                bSort : false,
             });
         });
     </script>
     <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#uploadImg').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
         $(function () {
+            // AJAX
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -121,14 +224,16 @@
                     buttons: true,
                     dangerMode: true,
                 })
-                    .then((willDelete) = > {
+                    .then((willDelete) => {
                     if(willDelete) {
                         $.ajax({
                             type: 'delete',
                             url: 'user/' + id,
                             success: function (response) {
-                                toastr.success('Deleted success');
                                 btn.parent().parent().parent().fadeOut('slow');
+                            },
+                            error: function (xhr, status, error) {
+                                toastr.error('Unable to delete.', 'Error!');
                             },
                         });
                     }
@@ -136,7 +241,18 @@
             )
                 ;
             });
+            // END AJAX
 
+            $("#imgFile").change(function () {
+                $('#uploadImg').removeClass('hidden');
+                readURL(this);
+            });
+            $('#uploadImgBtn').on('click', function() {
+                $("#imgFile").trigger('click');
+            });
+            $('.modal-footer .btn-primary').on('click', function() {
+                $("#addEmployee").trigger('click');
+            });
         });
 
     </script>

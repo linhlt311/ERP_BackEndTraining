@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreEmployeeRequest;
 use App\Employee;
 
 class ManageUserController extends Controller
@@ -14,7 +15,7 @@ class ManageUserController extends Controller
      */
     public function index()
     {
-        $employees = Employee::paginate(5);
+        $employees = Employee::orderBy('updated_at','desc')->paginate(config('app.user_pagination'));
         $data = [
             'employees' => $employees,
         ];
@@ -37,11 +38,15 @@ class ManageUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEmployeeRequest $request)
     {
         $data = $request->all();
-        $data = array_slice($data, 1);
-        Employee::insert($data);
+        if ($request->hasFile('img')) {
+            $imgLink = $request->file('img')->store('public/images');
+            $imgLink = substr($imgLink, 7);
+            $data["image"] = $imgLink;
+        }
+        Employee::create($data);
         return redirect()->route('user.index');
     }
 
@@ -53,7 +58,7 @@ class ManageUserController extends Controller
      */
     public function show($id)
     {
-        $employee = Employee::find($id);
+        $employee = Employee::findOrFail($id);
         $data = [
             'employee' => $employee,
         ];
@@ -68,7 +73,7 @@ class ManageUserController extends Controller
      */
     public function edit($id)
     {
-        $employee = Employee::find($id);
+        $employee = Employee::findOrFail($id);
         $data = [
             'employee' => $employee,
         ];
@@ -98,9 +103,25 @@ class ManageUserController extends Controller
      */
     public function destroy($id)
     {
-        Employee::find($id)->delete();
+        Employee::findOrFail($id)->delete();
         return response()->json([
             'message' => 'Delete success'
+        ]);
+    }
+
+    public function updateImage(Request $request, $id) {
+        $array = $request->all();
+        if (!$request->hasFile('img')) {
+            return redirect()->route('user.show', [
+                'id' => $id,
+            ]);
+        }
+        $imgLink = $request->file('img')->store('public/images');
+        $imgLink = substr($imgLink, 7);
+        $data["image"] = $imgLink;
+        Employee::find($id)->update($data);
+        return redirect()->route('user.show', [
+            'id' => $id,
         ]);
     }
 }

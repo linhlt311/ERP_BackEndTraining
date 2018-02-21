@@ -8,38 +8,51 @@
                 <h3 class="box-title">Add new employee</h3>
             </div>
             <!-- /.box-header -->
+
             <!-- form start -->
-            <form role="form" action="{{route('user.store')}}" method="post">
+            <form role="form" action="{{ route('user.store') }}" method="post" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <div class="box-body">
                     <div class="form-group">
                         <label for="">Name</label>
-                        <input type="text" class="form-control" id="" placeholder="Enter name" name="name" autocomplete="off" required>
+                        @if ($errors->has('name'))
+                            <p class="input-warning">{{ $errors->first('name') }}</p>
+                        @endif
+                        <input type="text" class="form-control" id="" placeholder="Enter name" name="name" autocomplete="off" value="{{ old('name') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="">Gender</label>
                         <div class="radio">
                             <label class="radio-inline">
-                                <input type="radio" name="gender" id="optionsRadios1" value="1" checked="" required>
+                                <input type="radio" name="gender" id="optionsRadios1" value="1" checked >
                                 Male
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="gender" id="optionsRadios2" value="0" required>
+                                <input type="radio" name="gender" id="optionsRadios2" value="0" >
                                 Female
                             </label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="">Phone number</label>
-                        <input type="text" class="form-control" id="" placeholder="Enter phone number" name="phone_number" required autocomplete="off">
+                        @if ($errors->has('phone_number'))
+                            <p class="input-warning">{{ $errors->first('phone_number') }}</p>
+                        @endif
+                        <input type="text" class="form-control" id="" placeholder="Enter phone number" name="phone_number"  autocomplete="off" value="{{ old('phone_number') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="">Email address</label>
-                        <input type="email" class="form-control" id="" placeholder="Enter email" name="email" autocomplete="off" required>
+                        @if ($errors->has('email'))
+                                <p class="input-warning">{{ $errors->first('email') }}</p>
+                        @endif
+                        <input type="email" class="form-control" id="" placeholder="Enter email" name="email" autocomplete="off" value="{{ old('email') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="">Address</label>
-                        <input type="text" class="form-control" id="" placeholder="Enter address" name="address" autocomplete="off" required>
+                        @if ($errors->has('address'))
+                            <p class="input-warning">{{ $errors->first('address') }}</p>
+                        @endif
+                        <input type="text" class="form-control" id="" placeholder="Enter address" name="address" autocomplete="off" value="{{ old('address') }}" required>
                     </div>
                     <div class="form-group">
                         <label>JLPT level</label>
@@ -52,6 +65,13 @@
                             <option value="None" selected>None</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="imgFile">Upload image</label><br>
+                        <img class="hidden" id="uploadImg" src="#" alt="your image" />
+                        <input class="hidden" type="file" id="imgFile" name="img">
+                        <button type="button" id="uploadImgBtn" class="btn btn-success"><i class="fa fa-fw fa-upload"></i>Upload</button>
+                        <p class="help-block">Upload profile picture</p>
+                    </div>
                 </div>
                 <!-- /.box-body -->
 
@@ -62,4 +82,30 @@
         </div>
     </section>
 
+@endsection
+
+@section('javascript')
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#uploadImg').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $(document).ready(function() {
+            $("#imgFile").change(function () {
+                $('#uploadImg').removeClass('hidden');
+                readURL(this);
+            });
+            $('#uploadImgBtn').on('click', function() {
+                $("#imgFile").trigger('click');
+            })
+        });
+    </script>
 @endsection

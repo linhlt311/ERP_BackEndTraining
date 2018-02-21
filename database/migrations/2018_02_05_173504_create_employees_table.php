@@ -18,9 +18,10 @@ class CreateEmployeesTable extends Migration
             $table->string('name');
             $table->integer('gender');
             $table->string('email')->unique();
-            $table->string('phone_number');
-            $table->string('address');
+            $table->string('phone_number')->nullable();
+            $table->string('address')->nullable();
             $table->string('JLPT');
+            $table->text('image');
             $table->timestamps();
         });
     }
