@@ -42,7 +42,10 @@
                     </div>
                     <div class="form-group">
                         <label for="">Email address</label>
-                        <input type="email" class="form-control" id="" value="{{ $employee->email }}" name="email" autocomplete="off" disabled>
+                        @if ($errors->has('email'))
+                            <p class="input-warning">{{ $errors->first('email') }}</p>
+                        @endif
+                        <input type="email" class="form-control" id="" value="{{ $employee->email }}" name="email" autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <label for="">Address</label>
